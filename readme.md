@@ -96,10 +96,10 @@ As of April 2025, OpenAI charges the following for GPT-4.1 API usage:
 ## 📂 Usage
 
 1. Download `.srt` subtitle files for your videos (see below)  
-2. Drop them into the `transcripts/` folder:
+2. Drop them into the `input_transcripts/` folder:
 
 ```
-recipe_blog_generator/transcripts/
+recipe_blog_generator/input_transcripts/
 ```
 
 3. Run the blog generator:
@@ -114,7 +114,7 @@ This will:
 - Save Markdown blog posts to:
 
 ```
-recipe_blog_generator/blog_posts/<Recipe Title>/<Title> - YYYY-MM-DD.md
+recipe_blog_generator/generated_posts/<Recipe Title>/<Title> - YYYY-MM-DD.md
 ```
 
 ---
@@ -127,7 +127,7 @@ You can extract subtitles from any YouTube video like this:
 2. Paste the YouTube video link
 3. Click **Download**
 4. Download the `.srt` subtitle file (not `.txt` or `.vtt`)
-5. Drop it into `transcripts/` and you're good to go!
+5. Drop it into `input_transcripts/` and you're good to go!
 
 ---
 
