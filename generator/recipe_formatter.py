@@ -1,5 +1,7 @@
-from config import BLOG_NAME, TAGLINE, today_string
 from pathlib import Path
+
+from config import BLOG_NAME, TAGLINE, today_string
+
 
 def build_recipe_prompt(transcript: str, title: str) -> str:
     today = today_string()

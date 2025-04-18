@@ -1,6 +1,6 @@
 # 🍳 Video Subtitles to Recipe Blog Generator
 
-A lightweight tool that automatically generates clean, structured Markdown recipe blog posts from `.srt` video transcripts using OpenAI’s GPT-4.1 API.  
+A lightweight tool that automatically generates clean, structured Markdown recipe blog posts from `.srt` video transcripts using OpenAI’s GPT-4.1 API.
 
 Originally built for the food blog [**Platin' It with Wendy**](https://www.youtube.com/@PlatinItWithWendy), this project is adaptable for any cooking or content creation workflow that starts with spoken video transcripts.
 
@@ -11,7 +11,8 @@ Originally built for the food blog [**Platin' It with Wendy**](https://www.youtu
 - 🧠 Converts transcripts into warm, engaging recipe blog posts using GPT-4.1  
 - 📝 Outputs structured Markdown (title, intro, ingredients, steps, sign-off)  
 - 📂 Organizes blog posts by recipe title and creation date  
-- 🔐 Uses a `.env` file to securely load your OpenAI API key
+- 🔐 Uses a `.env` file to securely load your OpenAI API key  
+- 📄 Cleanly separates LLM prompts from Python logic using Markdown-based templates
 
 ---
 
@@ -59,7 +60,7 @@ touch .env
 
 Add your OpenAI API key:
 
-```env
+```
 OPENAI_API_KEY=sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
@@ -67,13 +68,13 @@ OPENAI_API_KEY=sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ## 🔑 How to Get an OpenAI API Key (Paid Account Required)
 
-1. Sign up at [platform.openai.com/signup](https://platform.openai.com/signup)  
-2. Set up billing: [platform.openai.com/account/billing](https://platform.openai.com/account/billing)  
+1. Sign up at https://platform.openai.com/signup  
+2. Set up billing: https://platform.openai.com/account/billing  
    - You'll need to add a credit card (OpenAI charges per usage)
-3. Generate your key: [platform.openai.com/api-keys](https://platform.openai.com/api-keys)  
+3. Generate your key: https://platform.openai.com/api-keys  
 4. Paste the key into your `.env` file
 
-> 💡 **You will only see the key once**, so copy it and store it safely.
+> 💡 You will only see the key once, so copy it and store it safely.
 
 ### 💸 How Much Does It Cost?
 
@@ -109,12 +110,14 @@ python main.py
 ```
 
 This will:
+
 - Process all new `.srt` files
 - Skip any already processed
+- Rename the `.srt` file based on the cleaned recipe title
 - Save Markdown blog posts to:
 
 ```
-recipe_blog_generator/generated_posts/<Recipe Title>/<Title> - YYYY-MM-DD.md
+recipe_blog_generator/generated_posts/<Recipe Title>/<Recipe Title> - YYYY-MM-DD.md
 ```
 
 ---
@@ -123,26 +126,28 @@ recipe_blog_generator/generated_posts/<Recipe Title>/<Title> - YYYY-MM-DD.md
 
 You can extract subtitles from any YouTube video like this:
 
-1. Go to [https://downsub.com](https://downsub.com)
-2. Paste the YouTube video link
-3. Click **Download**
-4. Download the `.srt` subtitle file (not `.txt` or `.vtt`)
+1. Go to https://downsub.com  
+2. Paste the YouTube video link  
+3. Click **Download**  
+4. Download the `.srt` subtitle file (not `.txt` or `.vtt`)  
 5. Drop it into `input_transcripts/` and you're good to go!
 
 ---
 
 ## ✨ Example Output
 
-```markdown
+```
 # Super Creamy Macaroni Salad
 
 > **Posted on April 18, 2025**  
 > *Recipes that impress with ease*
 
 ## Ingredients
+
 ...
 
 ## Method
+
 ...
 
 Happy cooking,  
@@ -151,11 +156,28 @@ Wendy
 
 ---
 
+## 🧠 Prompt Templates
+
+All system prompts are defined in Markdown or TXT files under:
+
+```
+recipe_blog_generator/generator/prompts/
+```
+
+You can customize:
+- Blog structure via `recipe_prompt_template.md`
+- Title cleanup behavior via `clean_title_prompt.txt`
+
+Templates are processed using `prompt_builders/`, which fill in variables like `{title}`, `{date}`, `{transcript}`, `{blog_name}`, and `{tagline}`.
+
+---
+
 ## 🧪 Notes
 
 - The script treats `recipe_blog_generator` as the root
-- Blog posts are written using GPT-4.1
+- Blog posts are written using GPT-4.1 via a singleton OpenAI client
 - Already-generated posts are skipped unless deleted
+- Prompts are completely decoupled from logic — easy to edit independently
 
 ---
 
@@ -177,7 +199,7 @@ sudo apt install python3.11
 
 ### Windows
 
-Download from [https://www.python.org/downloads/](https://www.python.org/downloads/)  
+Download from https://www.python.org/downloads/  
 ✅ Be sure to check **"Add Python to PATH"** during install.
 
 ---
@@ -193,4 +215,4 @@ Feel free to open issues for bugs, feature requests, or ideas to expand this too
 
 MIT License © Saarthak Sangamnerkar
 
----
+--- 

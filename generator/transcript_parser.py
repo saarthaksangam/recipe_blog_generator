@@ -1,5 +1,6 @@
 import re
 
+
 def extract_transcript_from_srt(srt_path: str) -> str:
     with open(srt_path, "r", encoding="utf-8") as f:
         lines = f.readlines()
