@@ -2,7 +2,7 @@
 
 A lightweight tool that automatically generates clean, structured Markdown recipe blog posts from `.srt` video transcripts using OpenAI’s GPT-4.1 API.  
 
-Originally built for the food blog **Platin' It with Wendy**, this project is adaptable for any cooking or content creation workflow that starts with spoken video transcripts.
+Originally built for the food blog [**Platin' It with Wendy**](https://www.youtube.com/@PlatinItWithWendy), this project is adaptable for any cooking or content creation workflow that starts with spoken video transcripts.
 
 ---
 
@@ -18,7 +18,7 @@ Originally built for the food blog **Platin' It with Wendy**, this project is ad
 ## 📦 Requirements
 
 - Python **3.10 or higher**
-- An OpenAI API key
+- An OpenAI API key (requires a paid OpenAI account)
 
 ---
 
@@ -65,28 +65,69 @@ OPENAI_API_KEY=sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ---
 
+## 🔑 How to Get an OpenAI API Key (Paid Account Required)
+
+1. Sign up at [platform.openai.com/signup](https://platform.openai.com/signup)  
+2. Set up billing: [platform.openai.com/account/billing](https://platform.openai.com/account/billing)  
+   - You'll need to add a credit card (OpenAI charges per usage)
+3. Generate your key: [platform.openai.com/api-keys](https://platform.openai.com/api-keys)  
+4. Paste the key into your `.env` file
+
+> 💡 **You will only see the key once**, so copy it and store it safely.
+
+### 💸 How Much Does It Cost?
+
+As of April 2025, OpenAI charges the following for GPT-4.1 API usage:
+
+| Model     | Input (1M tokens) | Output (1M tokens) |
+|-----------|------------------:|-------------------:|
+| GPT-4.1   | $2.00             | $8.00              |
+
+#### 🧠 What is a Token?
+
+- 1,000 tokens ≈ 750 words (about 4–5 paragraphs)
+- Each blog post generation typically uses **1,000–1,500 tokens total**
+- Estimated cost: **~$0.06 to $0.12 per recipe**
+
+> 💡 You are billed based on both input and output tokens.
+
+---
+
 ## 📂 Usage
 
-1. Drop `.srt` transcript files into:
+1. Download `.srt` subtitle files for your videos (see below)  
+2. Drop them into the `transcripts/` folder:
 
 ```
 recipe_blog_generator/transcripts/
 ```
 
-2. Run the generator:
+3. Run the blog generator:
 
 ```bash
 python main.py
 ```
 
 This will:
-- Process all unconverted `.srt` files
-- Skip those already processed
-- Save blog posts to:
+- Process all new `.srt` files
+- Skip any already processed
+- Save Markdown blog posts to:
 
 ```
 recipe_blog_generator/blog_posts/<Recipe Title>/<Title> - YYYY-MM-DD.md
 ```
+
+---
+
+## 📥 How to Download `.srt` Subtitle Files from YouTube
+
+You can extract subtitles from any YouTube video like this:
+
+1. Go to [https://downsub.com](https://downsub.com)
+2. Paste the YouTube video link
+3. Click **Download**
+4. Download the `.srt` subtitle file (not `.txt` or `.vtt`)
+5. Drop it into `transcripts/` and you're good to go!
 
 ---
 
@@ -112,9 +153,9 @@ Wendy
 
 ## 🧪 Notes
 
-- The script treats `recipe_blog_generator` as the project root
-- Blog posts are generated via GPT-4.1
-- Duplicate outputs are skipped unless deleted manually
+- The script treats `recipe_blog_generator` as the root
+- Blog posts are written using GPT-4.1
+- Already-generated posts are skipped unless deleted
 
 ---
 
@@ -136,15 +177,16 @@ sudo apt install python3.11
 
 ### Windows
 
-Download from [python.org](https://www.python.org/downloads/)  
-Be sure to check **"Add Python to PATH"** during install
+Download from [https://www.python.org/downloads/](https://www.python.org/downloads/)  
+✅ Be sure to check **"Add Python to PATH"** during install.
 
 ---
 
 ## 🤝 Contributing
 
-Pull requests welcome!
-Feel free to open issues for bugs or feature requests.
+Pull requests welcome!  
+Feel free to open issues for bugs, feature requests, or ideas to expand this tool.
+
 ---
 
 ## 📜 License
@@ -152,4 +194,3 @@ Feel free to open issues for bugs or feature requests.
 MIT License © Saarthak Sangamnerkar
 
 ---
-
