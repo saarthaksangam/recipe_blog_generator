@@ -8,7 +8,7 @@ from config import today_for_filename
 def process_single_srt(srt_path: Path):
     recipe_title = srt_path.stem.replace("_", " ").replace("-", " ").title()
     safe_title = sanitize_filename(recipe_title)
-    output_folder = Path("recipe_blog_generator/blog_posts") / safe_title
+    output_folder = Path("blog_posts") / safe_title
     output_folder.mkdir(parents=True, exist_ok=True)
 
     output_filename = f"{safe_title} - {today_for_filename()}.md"
