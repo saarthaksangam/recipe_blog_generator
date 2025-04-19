@@ -199,7 +199,7 @@ Wendy
 
 ## 🧪 Notes
 
-- Output is deterministic (controlled by structured prompt templates)
+- Output is structured but not fully deterministic (controlled by structured prompt templates)
 - All LLM logic is modular and role-based (system/user separation)
 - Prompt templates can be edited without touching Python code
 - The React frontend is the recommended way to use the tool interactively
