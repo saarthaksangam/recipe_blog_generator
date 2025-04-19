@@ -1,11 +1,19 @@
 """
 Utility functions for string sanitization and date formatting.
 """
+import re
 from datetime import datetime
-
+import re
 
 def sanitize_filename(name: str) -> str:
-    return "".join(c for c in name if c.isalnum() or c in (' ', '-', '_')).rstrip()
+    # Remove illegal characters (Windows-safe)
+    name = re.sub(r'[<>:"/\\|?*]', '', name)
+    # Replace multiple spaces with a single space
+    name = re.sub(r'\s+', ' ', name)
+    # Strip leading/trailing spaces
+    name = name.strip()
+    return name
+
 
 
 def today_string():

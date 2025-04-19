@@ -1,17 +1,19 @@
 # 🍳 Video Subtitles to Recipe Blog Generator
 
-A lightweight tool that automatically generates clean, structured Markdown recipe blog posts from `.srt` video transcripts using OpenAI’s GPT-4.1 API.
+A lightweight tool that automatically generates clean, structured Markdown recipe blog posts from `.srt` video
+transcripts using OpenAI’s GPT-4.1 API.
 
-Originally built for the food blog [**Platin' It with Wendy**](https://www.youtube.com/@PlatinItWithWendy), this project is adaptable for any cooking or content creation workflow that starts with spoken video transcripts.
+Originally built for the food blog [**Platin' It with Wendy**](https://www.youtube.com/@PlatinItWithWendy), this project
+is adaptable for any cooking or content creation workflow that starts with spoken video transcripts.
 
 ---
 
 ## 🚀 Features
 
-- 🧠 Converts transcripts into warm, engaging recipe blog posts using GPT-4.1  
-- ✍️ Uses OpenAI's chat format with separate **system** and **user** prompts  
-- 📄 Markdown-based template files (no prompt logic in code!)  
-- 📂 Organizes blog posts by recipe title and creation date  
+- 🧠 Converts transcripts into warm, engaging recipe blog posts using GPT-4.1
+- ✍️ Uses OpenAI's chat format with separate **system** and **user** prompts
+- 📄 Markdown-based template files (no prompt logic in code!)
+- 📂 Organizes blog posts by recipe title and creation date
 - 🔐 Uses a `.env` file to securely load your OpenAI API key
 
 ---
@@ -66,9 +68,9 @@ OPENAI_API_KEY=sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ## 🔑 How to Get an OpenAI API Key
 
-1. Sign up at https://platform.openai.com/signup  
-2. Add a billing method: https://platform.openai.com/account/billing  
-3. Generate your key: https://platform.openai.com/api-keys  
+1. Sign up at https://platform.openai.com/signup
+2. Add a billing method: https://platform.openai.com/account/billing
+3. Generate your key: https://platform.openai.com/api-keys
 4. Paste the key into your `.env` file
 
 💡 You only see the key once — copy it somewhere safe!
@@ -81,7 +83,7 @@ GPT-4.1 pricing as of April 2025:
 
 | Model   | Input (1M tokens) | Output (1M tokens) |
 |---------|------------------:|-------------------:|
-| GPT-4.1 | $2.00             | $8.00              |
+| GPT-4.1 |             $2.00 |              $8.00 |
 
 1,000 tokens ≈ 750 words.  
 Each blog post costs ~**$0.06 to $0.12** depending on transcript length.
@@ -120,9 +122,9 @@ recipe_blog_generator/generated_posts/<Recipe Title>/<Title> - YYYY-MM-DD.md
 
 Use [https://downsub.com](https://downsub.com):
 
-1. Paste the YouTube link  
-2. Click **Download**  
-3. Save the `.srt` file  
+1. Paste the YouTube link
+2. Click **Download**
+3. Save the `.srt` file
 4. Drop it in `input_transcripts/`
 
 ---
@@ -142,6 +144,7 @@ recipe_blog_generator/generator/prompts/
 ```
 
 Prompt builders like `build_recipe_prompt_messages()` return:
+
 - `system_prompt`: defines the assistant's role
 - `user_prompt`: provides the actual content scaffold (e.g. Markdown structure + transcript)
 

@@ -6,7 +6,7 @@ from pathlib import Path
 
 def load_prompt_template(name: str) -> str:
     """Loads a prompt template from generator/prompts/*.md or .txt"""
-    from generator.logging_utils import setup_logger
+    from app.utils.logging import setup_logger
     logger = setup_logger()
     path = Path(__file__).resolve().parent.parent / "prompts" / name
     try:

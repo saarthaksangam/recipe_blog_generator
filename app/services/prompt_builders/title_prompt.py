@@ -1,7 +1,7 @@
 """
 Prompt builder for recipe title generation.
 """
-from generator.prompt_builders import load_prompt_template
+from app.services.prompt_builders import load_prompt_template
 
 
 def build_title_prompt_messages(filename: str) -> list[dict]:

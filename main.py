@@ -1,20 +1,23 @@
-"""
-Main entry point for the recipe blog generator CLI.
-"""
 import sys
 from pathlib import Path
 
-from config import INPUT_DIR
-from generator.batch_processor import process_all_srt
-
 # Add the project root to sys.path
-project_root = Path(__file__).resolve().parent
-sys.path.append(str(project_root))
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
+from app.agents.blog_agent import blog_agent
+from agents import Runner
+import asyncio
 
 
-def main():
-    process_all_srt(INPUT_DIR)
+async def main():
+    url = input("🎥 Enter YouTube URL: ")
+    if not url:
+        # Default URL for testing
+        url = "https://www.youtube.com/watch?v=u-LAZO2WbzQ"
+    result = await Runner.run(blog_agent, input=url)
+
+    print(result.final_output)
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

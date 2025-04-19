@@ -3,6 +3,7 @@ Logging utilities for recipe blog generator.
 """
 import logging
 
+
 def setup_logger() -> logging.Logger:
     """Set up a logger with emoji, timestamp, and process info."""
     logger = logging.getLogger("recipe_blog_generator")

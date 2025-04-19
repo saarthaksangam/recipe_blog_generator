@@ -35,8 +35,7 @@ class OpenAIClient:
             )
             return response.choices[0].message.content.strip()
         except Exception as e:
-            from generator.logging_utils import setup_logger
+            from app.utils.logging import setup_logger
             logger = setup_logger()
             logger.error("OpenAI chat() failed: %s", e, exc_info=True)
             raise
-
