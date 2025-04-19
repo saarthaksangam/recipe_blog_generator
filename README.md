@@ -196,7 +196,12 @@ Wendy
 ```
 
 ---
+## 🖥️ Screenshots
+<img width="1185" alt="image" src="https://github.com/user-attachments/assets/31905d99-4e4c-4c03-88bd-59ec75324f17" />
+<img width="1107" alt="image" src="https://github.com/user-attachments/assets/0315bce0-93a9-45d7-a802-9848f2277c2b" />
+<img width="1071" alt="image" src="https://github.com/user-attachments/assets/18b11299-4bef-4d4b-9443-b9a566c7c7f8" />
 
+---
 ## 🧪 Notes
 
 - Output is structured but not fully deterministic (controlled by structured prompt templates)
