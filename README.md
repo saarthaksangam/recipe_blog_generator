@@ -1,26 +1,26 @@
 # 🍳 Video Subtitles to Recipe Blog Generator
 
-A lightweight tool that automatically generates clean, structured Markdown recipe blog posts from `.srt` video
-transcripts using OpenAI’s GPT-4.1 API.
+A lightweight tool that automatically generates clean, structured Markdown recipe blog posts from YouTube videos using OpenAI’s GPT-4.1 API.
 
-Originally built for the food blog [**Platin' It with Wendy**](https://www.youtube.com/@PlatinItWithWendy), this project
-is adaptable for any cooking or content creation workflow that starts with spoken video transcripts.
+Originally built for the food blog [**Platin' It with Wendy**](https://www.youtube.com/@PlatinItWithWendy), this project is adaptable for any cooking or content creation workflow that starts with spoken video transcripts.
 
 ---
 
 ## 🚀 Features
 
-- 🧠 Converts transcripts into warm, engaging recipe blog posts using GPT-4.1
+- 🧠 Converts YouTube transcripts into warm, engaging recipe blog posts using GPT-4.1
 - ✍️ Uses OpenAI's chat format with separate **system** and **user** prompts
 - 📄 Markdown-based template files (no prompt logic in code!)
 - 📂 Organizes blog posts by recipe title and creation date
 - 🔐 Uses a `.env` file to securely load your OpenAI API key
+- 🖥️ Modern React frontend for easy blog generation
 
 ---
 
 ## 📦 Requirements
 
 - Python **3.10 or higher**
+- Node.js **18+** and npm (for frontend)
 - An OpenAI API key (requires a paid OpenAI account)
 
 ---
@@ -34,23 +34,23 @@ git clone https://github.com/your-username/recipe_blog_generator.git
 cd recipe_blog_generator
 ```
 
-### 2. Create a Virtual Environment
+### 2. Backend Setup (FastAPI)
+
+#### a. Create a Virtual Environment
 
 ```bash
 python3 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-### 3. Install Dependencies
+#### b. Install Python Dependencies
 
 ```bash
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
----
-
-## 🔐 Environment Setup
+#### c. Environment Setup
 
 Create a `.env` file in the root of the repo:
 
@@ -64,39 +64,81 @@ Add your OpenAI API key:
 OPENAI_API_KEY=sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
----
+#### d. Run the Backend API
 
-## 🔑 How to Get an OpenAI API Key
+```bash
+cd backend
+uvicorn main:app --reload
+```
 
-1. Sign up at https://platform.openai.com/signup
-2. Add a billing method: https://platform.openai.com/account/billing
-3. Generate your key: https://platform.openai.com/api-keys
-4. Paste the key into your `.env` file
-
-💡 You only see the key once — copy it somewhere safe!
+The backend will be available at: [http://localhost:8000](http://localhost:8000)
 
 ---
 
-## 💰 Cost Estimate
+### 3. Frontend Setup (React + Vite)
 
-GPT-4.1 pricing as of April 2025:
+The React frontend is in the `frontend/` directory.
 
-| Model   | Input (1M tokens) | Output (1M tokens) |
-|---------|------------------:|-------------------:|
-| GPT-4.1 |             $2.00 |              $8.00 |
+#### a. Install Node.js dependencies
 
-1,000 tokens ≈ 750 words.  
-Each blog post costs ~**$0.06 to $0.12** depending on transcript length.
+```bash
+cd frontend
+npm install
+```
+
+#### b. Start the development server
+
+```bash
+npm run dev
+```
+
+The frontend will be available at: [http://localhost:5173](http://localhost:5173)
 
 ---
 
-## 📂 Usage
+### 4. Local Development Workflow
+
+- **Start the backend** (see above)
+- **Start the frontend** (see above)
+- Open [http://localhost:5173](http://localhost:5173) in your browser
+- The frontend will communicate with the backend API at [http://localhost:8000](http://localhost:8000)
+
+---
+
+## 📂 Project Structure
+
+```
+recipe_blog_generator/
+├── backend/                # FastAPI backend (all Python code)
+│   ├── main.py             # FastAPI entrypoint
+│   ├── services/
+│   │   ├── prompts/        # Prompt templates (system/user)
+│   │   └── ...
+│   └── ...
+├── frontend/               # React + Vite frontend
+│   ├── src/                # React source code
+│   └── ...
+├── config.py
+├── requirements.txt
+├── README.md
+└── ...
+```
+
+- **Prompts:** are now in `backend/services/prompts/`
+- **Input transcripts:** (if using CLI) go in `input_transcripts/`
+- **Generated posts:** (if using CLI) go in `generated_posts/`
+
+---
+
+## 📂 Usage (CLI, optional)
+
+If you want to use the Python CLI for batch processing:
 
 1. Download `.srt` subtitle files (see below)
 2. Place them in:
 
 ```
-recipe_blog_generator/input_transcripts/
+input_transcripts/
 ```
 
 3. Run the generator:
@@ -106,14 +148,13 @@ python main.py
 ```
 
 This will:
-
 - Clean the title using LLM
 - Rename the `.srt` file based on the cleaned title
 - Generate a Markdown blog post
 - Save it to:
 
 ```
-recipe_blog_generator/generated_posts/<Recipe Title>/<Title> - YYYY-MM-DD.md
+generated_posts/<Recipe Title>/<Title> - YYYY-MM-DD.md
 ```
 
 ---
@@ -134,13 +175,11 @@ Use [https://downsub.com](https://downsub.com):
 All prompts are defined in:
 
 ```
-recipe_blog_generator/generator/prompts/
+backend/services/prompts/
 ├── system/
-│   ├── recipe_prompt.md
-│   └── title_prompt.md
+│   └── recipe_prompt.md
 ├── user/
-│   ├── recipe_prompt.md
-│   └── title_prompt.md
+│   └── recipe_prompt.md
 ```
 
 Prompt builders like `build_recipe_prompt_messages()` return:
@@ -178,6 +217,7 @@ Wendy
 - Output is deterministic (controlled by structured prompt templates)
 - All LLM logic is modular and role-based (system/user separation)
 - Prompt templates can be edited without touching Python code
+- The React frontend is the recommended way to use the tool interactively
 
 ---
 
