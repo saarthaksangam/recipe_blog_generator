@@ -9,10 +9,10 @@ Originally built for the food blog [**Platin' It with Wendy**](https://www.youtu
 ## 🚀 Features
 
 - 🧠 Converts transcripts into warm, engaging recipe blog posts using GPT-4.1  
-- 📝 Outputs structured Markdown (title, intro, ingredients, steps, sign-off)  
+- ✍️ Uses OpenAI's chat format with separate **system** and **user** prompts  
+- 📄 Markdown-based template files (no prompt logic in code!)  
 - 📂 Organizes blog posts by recipe title and creation date  
-- 🔐 Uses a `.env` file to securely load your OpenAI API key  
-- 📄 Cleanly separates LLM prompts from Python logic using Markdown-based templates
+- 🔐 Uses a `.env` file to securely load your OpenAI API key
 
 ---
 
@@ -46,8 +46,6 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-> ✅ The `requirements.txt` only includes packages explicitly installed (e.g. `openai`, `python-dotenv`).
-
 ---
 
 ## 🔐 Environment Setup
@@ -66,44 +64,40 @@ OPENAI_API_KEY=sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ---
 
-## 🔑 How to Get an OpenAI API Key (Paid Account Required)
+## 🔑 How to Get an OpenAI API Key
 
 1. Sign up at https://platform.openai.com/signup  
-2. Set up billing: https://platform.openai.com/account/billing  
-   - You'll need to add a credit card (OpenAI charges per usage)
+2. Add a billing method: https://platform.openai.com/account/billing  
 3. Generate your key: https://platform.openai.com/api-keys  
 4. Paste the key into your `.env` file
 
-> 💡 You will only see the key once, so copy it and store it safely.
+💡 You only see the key once — copy it somewhere safe!
 
-### 💸 How Much Does It Cost?
+---
 
-As of April 2025, OpenAI charges the following for GPT-4.1 API usage:
+## 💰 Cost Estimate
 
-| Model     | Input (1M tokens) | Output (1M tokens) |
-|-----------|------------------:|-------------------:|
-| GPT-4.1   | $2.00             | $8.00              |
+GPT-4.1 pricing as of April 2025:
 
-#### 🧠 What is a Token?
+| Model   | Input (1M tokens) | Output (1M tokens) |
+|---------|------------------:|-------------------:|
+| GPT-4.1 | $2.00             | $8.00              |
 
-- 1,000 tokens ≈ 750 words (about 4–5 paragraphs)
-- Each blog post generation typically uses **1,000–1,500 tokens total**
-- Estimated cost: **~$0.06 to $0.12 per recipe**
-
-> 💡 You are billed based on both input and output tokens.
+1,000 tokens ≈ 750 words.  
+Each blog post costs ~**$0.06 to $0.12** depending on transcript length.
 
 ---
 
 ## 📂 Usage
 
-1. Download `.srt` subtitle files for your videos (see below)  
-2. Drop them into the `input_transcripts/` folder:
+1. Download `.srt` subtitle files (see below)
+2. Place them in:
 
 ```
 recipe_blog_generator/input_transcripts/
 ```
 
-3. Run the blog generator:
+3. Run the generator:
 
 ```bash
 python main.py
@@ -111,26 +105,47 @@ python main.py
 
 This will:
 
-- Process all new `.srt` files
-- Skip any already processed
-- Rename the `.srt` file based on the cleaned recipe title
-- Save Markdown blog posts to:
+- Clean the title using LLM
+- Rename the `.srt` file based on the cleaned title
+- Generate a Markdown blog post
+- Save it to:
 
 ```
-recipe_blog_generator/generated_posts/<Recipe Title>/<Recipe Title> - YYYY-MM-DD.md
+recipe_blog_generator/generated_posts/<Recipe Title>/<Title> - YYYY-MM-DD.md
 ```
 
 ---
 
-## 📥 How to Download `.srt` Subtitle Files from YouTube
+## 📥 How to Download `.srt` Files from YouTube
 
-You can extract subtitles from any YouTube video like this:
+Use [https://downsub.com](https://downsub.com):
 
-1. Go to https://downsub.com  
-2. Paste the YouTube video link  
-3. Click **Download**  
-4. Download the `.srt` subtitle file (not `.txt` or `.vtt`)  
-5. Drop it into `input_transcripts/` and you're good to go!
+1. Paste the YouTube link  
+2. Click **Download**  
+3. Save the `.srt` file  
+4. Drop it in `input_transcripts/`
+
+---
+
+## 🧠 Prompt Structure
+
+All prompts are defined in:
+
+```
+recipe_blog_generator/generator/prompts/
+├── system/
+│   ├── recipe_prompt.md
+│   └── title_prompt.md
+├── user/
+│   ├── recipe_prompt.md
+│   └── title_prompt.md
+```
+
+Prompt builders like `build_recipe_prompt_messages()` return:
+- `system_prompt`: defines the assistant's role
+- `user_prompt`: provides the actual content scaffold (e.g. Markdown structure + transcript)
+
+These are passed to the OpenAI chat API in a structured format.
 
 ---
 
@@ -143,11 +158,9 @@ You can extract subtitles from any YouTube video like this:
 > *Recipes that impress with ease*
 
 ## Ingredients
-
 ...
 
 ## Method
-
 ...
 
 Happy cooking,  
@@ -156,32 +169,18 @@ Wendy
 
 ---
 
-## 🧠 Prompt Templates
-
-All system prompts are defined in Markdown or TXT files under:
-
-```
-recipe_blog_generator/generator/prompts/
-```
-
-You can customize:
-- Blog structure via `recipe_prompt_template.md`
-- Title cleanup behavior via `clean_title_prompt.txt`
-
-Templates are processed using `prompt_builders/`, which fill in variables like `{title}`, `{date}`, `{transcript}`, `{blog_name}`, and `{tagline}`.
-
----
-
 ## 🧪 Notes
 
-- The script treats `recipe_blog_generator` as the root
-- Blog posts are written using GPT-4.1 via a singleton OpenAI client
-- Already-generated posts are skipped unless deleted
-- Prompts are completely decoupled from logic — easy to edit independently
+- Already-processed `.srt` files are skipped unless deleted
+- Output is deterministic (controlled by structured prompt templates)
+- All LLM logic is modular and role-based (system/user separation)
+- Prompt templates can be edited without touching Python code
 
 ---
 
-## 🐍 Don't Have Python 3.10+?
+## 🐍 Need Python 3.10+?
+
+Install via:
 
 ### macOS
 
@@ -199,15 +198,15 @@ sudo apt install python3.11
 
 ### Windows
 
-Download from https://www.python.org/downloads/  
-✅ Be sure to check **"Add Python to PATH"** during install.
+Download: https://www.python.org/downloads/  
+✅ Check “Add Python to PATH” during install
 
 ---
 
 ## 🤝 Contributing
 
 Pull requests welcome!  
-Feel free to open issues for bugs, feature requests, or ideas to expand this tool.
+Feel free to open issues for bugs, features, or feedback.
 
 ---
 
@@ -215,4 +214,4 @@ Feel free to open issues for bugs, feature requests, or ideas to expand this too
 
 MIT License © Saarthak Sangamnerkar
 
---- 
+---
