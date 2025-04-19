@@ -1,3 +1,6 @@
+"""
+Prompt builder for recipe title generation.
+"""
 from generator.prompt_builders import load_prompt_template
 
 

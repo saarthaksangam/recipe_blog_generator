@@ -1,3 +1,6 @@
+"""
+LLM call utilities for recipe blog generation.
+"""
 from generator.openai_client import OpenAIClient
 
 

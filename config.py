@@ -1,3 +1,6 @@
+"""
+Configuration for recipe blog generator project.
+"""
 from pathlib import Path
 
 BLOG_NAME = "Platin' It with Wendy"

@@ -1,3 +1,6 @@
+"""
+OpenAI client wrapper for chat-based LLM calls.
+"""
 import os
 
 from dotenv import load_dotenv

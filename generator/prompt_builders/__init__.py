@@ -1,3 +1,6 @@
+"""
+Prompt template loader for recipe blog generator.
+"""
 from pathlib import Path
 
 

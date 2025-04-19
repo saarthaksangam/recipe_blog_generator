@@ -1,3 +1,6 @@
+"""
+Main entry point for the recipe blog generator CLI.
+"""
 import sys
 from pathlib import Path
 

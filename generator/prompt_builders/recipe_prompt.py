@@ -1,3 +1,7 @@
+"""
+Prompt builder for recipe blog post generation.
+"""
+
 from config import BLOG_NAME, TAGLINE
 from generator.prompt_builders import load_prompt_template
 from generator.utils import today_string

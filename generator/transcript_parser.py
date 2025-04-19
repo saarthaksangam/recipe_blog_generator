@@ -1,3 +1,6 @@
+"""
+Transcript parsing utilities for extracting dialogue from SRT files.
+"""
 import re
 
 
