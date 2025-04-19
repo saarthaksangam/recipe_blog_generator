@@ -1,0 +1,328 @@
+/* markdown-styles.css - Coherent styling for markdown content */
+
+/* Base styling for the markdown preview container */
+.markdown-preview {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+  color: #334155;
+  line-height: 1.7;
+  font-size: 1rem;
+  max-width: none;
+}
+
+/* Typography: Headings */
+.markdown-preview h1 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.markdown-preview h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #111827;
+  line-height: 1.3;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.markdown-preview h3 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #111827;
+  line-height: 1.4;
+}
+
+.markdown-preview h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: #111827;
+}
+
+/* Typography: Body text */
+.markdown-preview p {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-preview strong {
+  font-weight: 600;
+  color: #111827;
+}
+
+.markdown-preview a {
+  color: #2563eb;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.markdown-preview a:hover {
+  color: #1d4ed8;
+}
+
+/* Lists */
+.markdown-preview ul {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-left: 1.75rem;
+  list-style-type: disc;
+}
+
+.markdown-preview ol {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-left: 1.75rem;
+  list-style-type: decimal;
+}
+
+.markdown-preview li {
+  margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
+  line-height: 1.7;
+}
+
+.markdown-preview ol li {
+  margin-bottom: 1rem;
+}
+
+/* Images */
+.markdown-image:first-of-type {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.markdown-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.375rem;
+  margin: 1.5rem 0;
+}
+
+/* Social media icons */
+img[src*="instagram.com"],
+img[src*="facebook.com"],
+img[src*="twitter.com"],
+img[src*="youtube.com"],
+img[src*="upload.wikimedia.org"] {
+  width: 24px !important;
+  height: 24px !important;
+  vertical-align: middle !important;
+  display: inline-block !important;
+  margin: 0 4px !important;
+  object-fit: contain !important;
+}
+
+/* YouTube iframe container */
+.youtube-iframe-container {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+  width: 100%;
+}
+
+.youtube-iframe {
+  width: 560px;
+  height: 315px;
+  max-width: 100%;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+@media (max-width: 640px) {
+  .youtube-iframe {
+    height: 240px;
+  }
+}
+
+/* Blockquotes */
+.markdown-preview blockquote:not(.metadata-blockquote) {
+  border-left: 4px solid #e2e8f0;
+  padding: 1rem 1.2rem;
+  background-color: #f8fafc;
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+  color: #475569;
+  font-style: italic;
+}
+
+.inline-icon {
+  vertical-align: -0.125em;
+  margin-right: 0.25rem;
+  color: #3b82f6;
+}
+
+.tagline {
+  font-style: italic;
+  color: #64748b;
+}
+
+.metadata-blockquote {
+  border-left: 3px solid #3b82f6;
+  background-color: #f0f7ff;
+  padding: 0.875rem 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  width: fit-content;
+  max-width: 100%;
+}
+
+.metadata-blockquote p {
+  margin: 0.5rem 0 !important;
+  line-height: 1.5;
+  color: #475569;
+}
+
+/* Tables */
+.markdown-preview table {
+  width: 100%;
+  table-layout: auto;
+  text-align: left;
+  margin: 1.5rem 0;
+  border-collapse: collapse;
+}
+
+.markdown-preview thead {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.markdown-preview thead th {
+  padding: 0.75rem;
+  vertical-align: bottom;
+  font-weight: 600;
+  color: #1f2937;
+  background-color: #f8fafc;
+}
+
+.markdown-preview tbody tr {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.markdown-preview tbody tr:last-child {
+  border-bottom-width: 0;
+}
+
+.markdown-preview tbody td {
+  padding: 0.75rem;
+  vertical-align: top;
+}
+
+/* Code blocks */
+.markdown-preview pre {
+  background-color: #f1f5f9;
+  border-radius: 0.375rem;
+  padding: 1rem;
+  overflow-x: auto;
+  font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  margin: 1.5rem 0;
+}
+
+.markdown-preview code {
+  font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-size: 0.875rem;
+  background-color: #f1f5f9;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+}
+
+.markdown-preview pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* Recipe-specific styles */
+.markdown-preview .cooking-tip {
+  background-color: #ecfdf5;
+  border-left: 4px solid #10b981;
+  padding: 1rem 1.2rem;
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+}
+
+.markdown-preview .nutritional-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.markdown-preview .nutrition-item {
+  background-color: #f1f5f9;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  min-width: 120px;
+  text-align: center;
+}
+
+.markdown-preview .nutrition-value {
+  font-weight: 600;
+  color: #111827;
+  display: block;
+  font-size: 1.25rem;
+}
+
+.markdown-preview .nutrition-label {
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+/* Animation */
+@keyframes highlight {
+  0% {
+    background-color: rgba(59, 130, 246, 0.1);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.markdown-preview .highlight {
+  animation: highlight 2s ease-out;
+}
+
+/* Print styles */
+@media print {
+  .markdown-preview {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000000;
+  }
+
+  .markdown-preview a {
+    color: #000000;
+    text-decoration: underline;
+  }
+
+  .markdown-image,
+  .markdown-image:first-of-type {
+    max-width: 100%;
+    box-shadow: none;
+    border: 1px solid #e2e8f0;
+  }
+
+  .youtube-iframe-container {
+    display: none;
+  }
+
+  .metadata-blockquote {
+    background-color: transparent;
+    border-left: 2px solid #000000;
+    box-shadow: none;
+  }
+}

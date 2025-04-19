@@ -1,0 +1,25 @@
+
+/* src/app.css */
+/* Custom styles that go beyond Tailwind utilities */
+
+/* For example, you might want to style markdown content beyond what @tailwindcss/typography provides */
+.markdown-content pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* You can also create custom utility classes */
+.youtube-thumbnail {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* Or define animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
