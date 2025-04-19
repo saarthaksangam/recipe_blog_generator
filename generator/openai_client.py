@@ -19,18 +19,15 @@ class OpenAIClient:
 
     def chat(
             self,
-            system_prompt: str,
-            user_prompt: str,
+            messages: list[dict],
             temperature: float = 0.7,
             max_tokens: int = 1000
     ) -> str:
         response = self._client.chat.completions.create(
             model=MODEL_NAME,
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt}
-            ],
+            messages=messages,
             temperature=temperature,
             max_tokens=max_tokens
         )
         return response.choices[0].message.content.strip()
+

@@ -13,7 +13,7 @@ def process_single_srt(srt_path: Path):
 
     # 🔮 Step 1: Use LLM to get cleaned blog title
     title_messages = build_title_prompt_messages(raw_filename)
-    recipe_title = call_openai_chat(*title_messages, temperature=0.3, max_tokens=30)
+    recipe_title = call_openai_chat(title_messages, temperature=0.0, max_tokens=150)
     safe_title = sanitize_filename(recipe_title)
 
     # 📂 Step 2: Rename .srt file to cleaned version
@@ -39,7 +39,7 @@ def process_single_srt(srt_path: Path):
     # 📜 Step 4: Extract transcript and build prompt
     transcript = extract_transcript_from_srt(srt_path)
     recipe_messages = build_recipe_prompt_messages(recipe_title, transcript)
-    blog_post = call_openai_chat(*recipe_messages, temperature=0.7, max_tokens=1500)
+    blog_post = call_openai_chat(recipe_messages, temperature=0.7, max_tokens=5000)
 
     # 💾 Step 5: Save generated blog post
     with open(output_path, "w", encoding="utf-8") as f:
