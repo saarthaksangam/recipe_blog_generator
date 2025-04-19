@@ -111,62 +111,48 @@ The frontend will be available at: [http://localhost:5173](http://localhost:5173
 recipe_blog_generator/
 ├── backend/                # FastAPI backend (all Python code)
 │   ├── main.py             # FastAPI entrypoint
-│   ├── services/
+│   ├── agents/             # LLM agent definitions (e.g., blog_agent)
+│   ├── clients/            # API clients (OpenAI, etc.)
+│   ├── middleware/         # FastAPI middleware (logging, CORS, etc.)
+│   ├── router/             # FastAPI route definitions (API endpoints)
+│   ├── schemas/            # Pydantic models for API responses
+│   ├── services/           # Core business logic and utilities
+│   │   ├── llm/            # LLM call wrappers
+│   │   ├── prompt_builders/# Functions to build prompt messages
 │   │   ├── prompts/        # Prompt templates (system/user)
-│   │   └── ...
-│   └── ...
+│   │   ├── tools/          # Tool functions (e.g., generate_blog_from_youtube)
+│   │   └── youtube_utils/  # YouTube metadata/subtitle extraction utilities
+│   └── utils/              # General-purpose utilities (logging, helpers)
 ├── frontend/               # React + Vite frontend
 │   ├── src/                # React source code
 │   └── ...
-├── config.py
-├── requirements.txt
+├── config.py               # Project-wide config (blog name, model, etc.)
+├── requirements.txt        # Python dependencies
 ├── README.md
 └── ...
 ```
 
-- **Prompts:** are now in `backend/services/prompts/`
-- **Input transcripts:** (if using CLI) go in `input_transcripts/`
-- **Generated posts:** (if using CLI) go in `generated_posts/`
+### Backend Overview
+
+- **Agents**: The main agent (blog_agent) orchestrates the process of generating a recipe blog post from a YouTube URL. It uses tools to fetch video metadata, transcript, and thumbnail, and then builds prompts for the LLM.
+- **Tools**: The backend/services/tools/ directory contains tool functions (e.g., generate_blog_from_youtube) that the agent can call. These tools use the youtube_utils module to extract video details and subtitles.
+- **YouTube Utils**: The backend/services/youtube_utils/ folder provides helper functions for extracting the video title, upload date, thumbnail, and transcript using yt-dlp.
+- **Prompt Builders & Templates**: Prompt templates (Markdown) live in backend/services/prompts/. Prompt builder functions fill in these templates with video-specific data.
+- **API**: The FastAPI backend exposes a /api/v1/generate-blog endpoint that takes a YouTube URL and returns a structured blog post (title, markdown, thumbnail, etc.).
 
 ---
 
 ## 📂 Usage (CLI, optional)
 
-If you want to use the Python CLI for batch processing:
+The CLI entry point (main.py) simply runs the agent and prints the generated blog post to the console. It does not store results or process input/output files.
 
-1. Download `.srt` subtitle files (see below)
-2. Place them in:
-
-```
-input_transcripts/
-```
-
-3. Run the generator:
+Example usage:
 
 ```bash
 python main.py
 ```
 
-This will:
-- Clean the title using LLM
-- Rename the `.srt` file based on the cleaned title
-- Generate a Markdown blog post
-- Save it to:
-
-```
-generated_posts/<Recipe Title>/<Title> - YYYY-MM-DD.md
-```
-
----
-
-## 📥 How to Download `.srt` Files from YouTube
-
-Use [https://downsub.com](https://downsub.com):
-
-1. Paste the YouTube link
-2. Click **Download**
-3. Save the `.srt` file
-4. Drop it in `input_transcripts/`
+You will be prompted for a YouTube URL, and the generated blog post will be displayed in your terminal.
 
 ---
 
@@ -213,7 +199,6 @@ Wendy
 
 ## 🧪 Notes
 
-- Already-processed `.srt` files are skipped unless deleted
 - Output is deterministic (controlled by structured prompt templates)
 - All LLM logic is modular and role-based (system/user separation)
 - Prompt templates can be edited without touching Python code
