@@ -1,4 +1,6 @@
-openai==1.75
-python-dotenv==1.1
-tqdm
-logging
+openai~=1.75
+openai-agents~=0.0
+python-dotenv~=1.1
+tqdm~=4.67
+yt-dlp==2025.3.31
+fastapi~=0.115
