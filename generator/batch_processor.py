@@ -61,8 +61,12 @@ def process_single_srt(srt_path: Path) -> None:
         blog_post = call_openai_chat(recipe_messages, temperature=0.7, max_tokens=5000)
 
         # 💾 Step 5: Save generated blog post
-        with open(output_path, "w", encoding="utf-8") as f:
-            f.write(blog_post)
+        try:
+            with open(output_path, "w", encoding="utf-8") as f:
+                f.write(blog_post)
+        except Exception as e:
+            logger.error("Failed to write blog post to %s: %s", output_path, e, exc_info=True)
+            return
 
         logger.info("✅ Blog post saved: %s", output_path)
     except Exception as e:

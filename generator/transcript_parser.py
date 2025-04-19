@@ -5,8 +5,14 @@ import re
 
 
 def extract_transcript_from_srt(srt_path: str) -> str:
-    with open(srt_path, "r", encoding="utf-8") as f:
-        lines = f.readlines()
+    try:
+        with open(srt_path, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+    except Exception as e:
+        from generator.logging_utils import setup_logger
+        logger = setup_logger()
+        logger.error("Failed to read SRT file %s: %s", srt_path, e, exc_info=True)
+        return "[Error: Failed to read transcript file. See logs for details.]"
 
     dialogue_lines = []
     for line in lines:

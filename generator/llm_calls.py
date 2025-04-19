@@ -2,7 +2,9 @@
 LLM call utilities for recipe blog generation.
 """
 from generator.openai_client import OpenAIClient
+from generator.logging_utils import setup_logger
 
+logger = setup_logger()
 
 def call_openai_chat(
     messages: list[dict],
@@ -10,4 +12,8 @@ def call_openai_chat(
     max_tokens: int = 1000
 ) -> str:
     client = OpenAIClient()
-    return client.chat(messages, temperature=temperature, max_tokens=max_tokens)
+    try:
+        return client.chat(messages, temperature=temperature, max_tokens=max_tokens)
+    except Exception as e:
+        logger.error("OpenAI API call failed: %s", e, exc_info=True)
+        return "[Error: OpenAI API call failed. See logs for details.]"
